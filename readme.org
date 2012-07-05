@@ -1,0 +1,64 @@
+#+TITLE:     Engine
+#+AUTHOR:    Tom Alexander
+#+EMAIL:     craftkiller@gmail.com
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+* License
+#+BEGIN_SRC text
+Copyright (c) 2012 Tom Alexander
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+   1. The origin of this software must not be misrepresented; you must not
+   claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+
+   2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+
+   3. This notice may not be removed or altered from any source
+   distribution.
+#+END_SRC
+* Compilation
+** Libraries
+The following libraries are required for building
+- physfs
+- sfml
+- glew
+- OpenGL
+- jpeg
+** Compiling
+- This distribution uses a cmake build system. On a unix-like environment you can build it with the following commands:
+#+BEGIN_SRC bash
+(in top level directory containing CMakeLists.txt)
+$ cmake .
+$ make
+#+END_SRC
+- On windows systems you have choices to make. If you are using an MSYS shell you would run:
+#+BEGIN_SRC bash
+(in top level directory containing CMakeLists.txt)
+$ cmake -G "MSYS Makefiles" .
+$ make
+#+END_SRC
+* Execution
+- The executable will be placed in the bin folder
+* Hotkeys
+- Use the arrow keys to move along the x and z axis
+- Use Q and E to move along the y axis
+- Rotation is not supported
