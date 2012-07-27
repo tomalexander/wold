@@ -1,6 +1,6 @@
 solution("topaz")
 configurations({"Debug", "Release"})
--- linkoptions({"-static"})
+linkoptions({"-static"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
 
@@ -21,7 +21,7 @@ function link_library_deps()
 end
 
 function link_sfml()
-   links({"GLEW", "sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system", "rt", "jpeg"})
+   links({"GLEW", "sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s", "rt", "jpeg"})
 end
 
 function link_opengl()
