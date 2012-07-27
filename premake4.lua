@@ -1,6 +1,6 @@
 solution("topaz")
 configurations({"Debug", "Release"})
-linkoptions({"-static"})
+-- linkoptions({"-static"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
 
