@@ -25,7 +25,6 @@
 
 #include "def.h"
 #include "topaz.h"
-#include "opencl_accelerator.h"
 #include "sqt.h"
 
 namespace topaz

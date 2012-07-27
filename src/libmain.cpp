@@ -32,7 +32,6 @@
 #include <sstream>
 #include "gl_program.h"
 #include <oolua/oolua.h>
-#include "opencl_accelerator.h"
 #include "lua_demo.h"
 
 using std::unordered_map;

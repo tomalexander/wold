@@ -35,7 +35,6 @@
 #include "animation.h"
 #include "sphere_primitive.h"
 #include "rigidbody.h"
-#include "opencl_accelerator.h"
 
 using std::unordered_map;
 
