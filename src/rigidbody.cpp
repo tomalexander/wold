@@ -24,7 +24,6 @@
 #include "unit.h"
 #include "collider.h"
 #include "aabb_collider.h"
-#include "opencl_accelerator.h"
 
 namespace topaz {
 
