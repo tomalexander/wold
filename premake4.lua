@@ -8,7 +8,6 @@ configuration("Release")
 flags({"OptimizeSpeed"})
 configuration "Static"
 flags({"OptimizeSpeed"})
-linkoptions({"-static"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
 configuration({})
