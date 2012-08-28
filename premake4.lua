@@ -17,7 +17,7 @@ libdirs({"/usr/local/lib/"})
 configuration({})
 
 function link_library_deps()
-   links({"oolua", "lua", "dl", "physfs", "pthread"})
+   links({"oolua", "lua", "dl", "physfs", "z", "pthread"})
    link_sfml()
    link_opengl()
 end
