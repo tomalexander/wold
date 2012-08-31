@@ -1,5 +1,5 @@
 solution("topaz")
-configurations({"Debug", "Release", "Static"})
+configurations({"Debug", "Release", "Static", "StaticDebug"})
 flags {"NoRTTI"}
 
 configuration("Debug")
@@ -8,6 +8,10 @@ configuration("Release")
 flags({"OptimizeSpeed"})
 configuration "Static"
 flags({"OptimizeSpeed"})
+flags({"StaticRuntime"})
+defines({"SFML_STATIC", "GLEW_STATIC"})
+configuration "Static"
+flags({"Symbols"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
 configuration({})
@@ -29,6 +33,8 @@ function link_sfml()
    configuration "Release"
    links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
    configuration "Static"
+   links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
+   configuration "StaticDebug"
    links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
    configuration {}
    links {"rt", "jpeg"}
