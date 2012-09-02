@@ -10,7 +10,8 @@ configuration "Static"
 flags({"OptimizeSpeed"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
-configuration "Static"
+linkoptions({"-static"})
+configuration "StaticDebug"
 flags({"Symbols"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
