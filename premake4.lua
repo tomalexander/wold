@@ -21,13 +21,20 @@ libdirs({"/usr/local/lib/"})
 configuration({})
 
 function link_library_deps()
-   links({"oolua", "lua", "dl", "physfs", "z", "pthread"})
+   links({"oolua", "lua", "physfs", "z", "pthread"})
+   configuration "linux"
+   links {"dl"}
+   configuration {}
    link_sfml()
    link_opengl()
 end
 
 function link_sfml()
+   configuration "windows"
+   links {"glew32"}
+   configuration "linux"
    links {"GLEW"}
+   configuration {}
    configuration "Debug"
    links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
    configuration "Release"
@@ -37,7 +44,10 @@ function link_sfml()
    configuration "StaticDebug"
    links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
    configuration {}
-   links {"rt", "jpeg"}
+   configuration "linux"
+   links {"rt"}
+   configuration {}
+   links {"jpeg"}
 end
 
 function link_opengl()
