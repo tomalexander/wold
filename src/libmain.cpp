@@ -300,13 +300,13 @@ namespace topaz
 
     void lua_init(const string & script_name)
     {
-        OOLUA::Script lua_context;
-        lua_context.register_class<car>();
-        long file_size;
-        string main_lua_script = string(read_fully_string(("scripts/" + script_name).c_str(), file_size));
-        int err = lua_context.run_chunk(main_lua_script);
-        if (err == false)
-            std::cerr << "Lua Error: " << OOLUA::get_last_error(lua_context) << std::endl;
+        // OOLUA::Script lua_context;
+        // lua_context.register_class<car>();
+        // long file_size;
+        // string main_lua_script = string(read_fully_string(("scripts/" + script_name).c_str(), file_size));
+        // int err = lua_context.run_chunk(main_lua_script);
+        // if (err == false)
+        //     std::cerr << "Lua Error: " << OOLUA::get_last_error(lua_context) << std::endl;
     }
 
     void add_event_handler(const function< bool(const sf::Event&)> & func)
