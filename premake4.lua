@@ -54,9 +54,9 @@ end
 
 function link_opengl()
    configuration("windows")
-   links({"glu32", "opengl32", "gdi32", "winmm", "user32"})
+   links({"opengl32", "gdi32", "winmm", "user32"})
    configuration("linux")
-   links({"GL", "GLU", "Xrandr", "SM", "ICE", "X11", "Xext"})
+   links({"GL", "Xrandr", "SM", "ICE", "X11", "Xext"})
    configuration({})
 end
 
