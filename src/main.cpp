@@ -93,7 +93,7 @@ void create_ball()
 
 void create_tower()
 {
-    for (int x = 0; x < 10; ++x)
+    for (fu8 x = 0; x < 10; ++x)
     {
         topaz::unit* new_unit = new topaz::unit(panda_model);
         new_unit->set_scale(0.005);
@@ -109,7 +109,7 @@ void create_tower()
 
 void print_num_objects(int milliseconds)
 {
-    static int time_till_print = 1000;
+    static fs32 time_till_print = 1000;
     time_till_print -= milliseconds;
     if (time_till_print <= 0)
     {

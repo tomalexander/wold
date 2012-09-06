@@ -35,28 +35,6 @@ namespace topaz
 {
     map<string, gl_program*> shader_ids;
 
-    ///@todo remove, this is dr.marcs
-    void checkShader(GLuint shader)
-    {
-        GLint status;
-        //lGetShaderiv gets a particular parameter of the shader
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-        if (status == GL_FALSE) {
-            int loglen;
-            char logbuffer[1000];
-            //there's also a corresponding glGetProgramInfoLog function for the linked program object
-            glGetShaderInfoLog(shader, sizeof(logbuffer), &loglen, logbuffer);
-            fprintf(stderr, "OpenGL Shader Compile Error:\n%.*s", loglen, logbuffer);
-        } else {
-            int loglen;
-            char logbuffer[1000];
-            glGetShaderInfoLog(shader, sizeof(logbuffer), &loglen, logbuffer);
-            fprintf(stderr, "OpenGL Shader Compile OK:\n%.*s", loglen, logbuffer);
-        }
-    }
-
-
-
     /** 
      * Create a shader program from a fragment and vertex shader
      *
@@ -107,8 +85,8 @@ namespace topaz
         glShaderSource(vertex_id, 1, &(vertex_shader_content), NULL);
         glCompileShader(vertex_id);
 
-        checkShader(fragment_id);
-        checkShader(vertex_id);
+        check_shader(fragment_id);
+        check_shader(vertex_id);
 
         //Link Everything!
         glAttachShader(program_id, fragment_id);
