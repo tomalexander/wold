@@ -36,8 +36,8 @@ function link_library_deps()
    links {"c"}
    configuration {}
 
-   link_opengl()
    link_sfml()
+   link_opengl()
 end
 
 function link_sfml()
