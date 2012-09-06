@@ -73,7 +73,7 @@ function link_opengl()
    links({"GL", "Xrandr", "Xrender", "SM", "ICE", "Xext", "X11"})
    configuration {"linux", "Static*"}
    links {"GL", "X11"}
-   linkoptions {"/usr/lib/libXrandr.a", "/usr/lib/libSM.a", "/usr/lib/libICE.a", "/usr/local/lib/libXext.a"}
+   linkoptions {"/usr/lib/libXrandr.a", "/usr/local/lib/libXrender.a", "/usr/lib/libSM.a", "/usr/lib/libICE.a", "/usr/local/lib/libXext.a"}
    configuration({})
 end
 
