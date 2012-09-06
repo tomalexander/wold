@@ -32,8 +32,8 @@ function link_library_deps()
    configuration {"linux", "Debug or Release"}
    links({"oolua", "lua", "physfs", "z", "pthread", "dl"})
    configuration {"linux", "Static*"}
-   linkoptions {"/usr/local/lib/liboolua.a", "/usr/local/lib/liblua.a", "/usr/local/lib/libphysfs.a", "/usr/local/lib/libz.a", "-pthread", "/usr/lib/libdl.a", "-static-libgcc", "-static-libstdc++", "/usr/lib/libc.a"}
-   -- links {"c"}
+   linkoptions {"/usr/local/lib/liboolua.a", "/usr/local/lib/liblua.a", "/usr/local/lib/libphysfs.a", "/usr/local/lib/libz.a", "-pthread", "/usr/lib/libdl.a", "-static-libgcc", "-static-libstdc++"}
+   links {"c"}
    configuration {}
 
    link_sfml()
