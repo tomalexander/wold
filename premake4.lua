@@ -51,7 +51,7 @@ function link_sfml()
    configuration "Debug or Release"
    links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
    configuration {"linux", "Static*"}
-   linkoptions {"/usr/local/lib/libsfml-window-s.a", "/usr/local/lib/libsfml-graphics-s.a", "/usr/local/lib/lib-audio-s.a", "/usr/local/lib/lib-network-s.a", "/usr/local/lib/lib-system-s.a"}
+   linkoptions {"/usr/local/lib/libsfml-window-s.a", "/usr/local/lib/libsfml-graphics-s.a", "/usr/local/lib/libsfml-audio-s.a", "/usr/local/lib/libsfml-network-s.a", "/usr/local/lib/libsfml-system-s.a"}
    configuration {"windows", "Static*"}
    links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
    configuration {}
