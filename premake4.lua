@@ -32,7 +32,8 @@ function link_library_deps()
    configuration {"linux", "Debug or Release"}
    links({"oolua", "lua", "physfs", "z", "pthread", "dl"})
    configuration {"linux", "Static*"}
-   linkoptions {"/usr/local/lib/liboolua.a", "/usr/local/lib/liblua.a", "/usr/local/lib/libphysfs.a", "/usr/local/lib/libz.a", "/usr/lib/libpthread.a", "/usr/lib/libdl.a", "/usr/lib/libc.a"}
+   linkoptions {"/usr/local/lib/liboolua.a", "/usr/local/lib/liblua.a", "/usr/local/lib/libphysfs.a", "/usr/local/lib/libz.a", "/usr/lib/libpthread.a", "/usr/lib/libdl.a"}
+   links {"c"}
    configuration {}
 
    link_opengl()
