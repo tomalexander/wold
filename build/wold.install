@@ -1,3 +1,6 @@
 post_install() {
   ln -s /opt/wold/wold /usr/local/bin/
 }
+pre_remove() {
+  rm /usr/local/bin/wold
+}
