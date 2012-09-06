@@ -56,7 +56,7 @@ function link_opengl()
    configuration("windows")
    links({"opengl32", "gdi32", "winmm", "user32"})
    configuration("linux")
-   linkoptions {"-dynamic -lGL -lX11"}
+   linkoptions {"-dy -lGL -lX11"}
    links({"Xrandr", "Xrender", "SM", "ICE", "Xext"})
    configuration "Static"
    -- Renew -static
