@@ -1,6 +1,6 @@
 solution("topaz")
 configurations({"Debug", "Release", "Static", "StaticDebug"})
-flags {"NoRTTI"}
+flags {"NoRTTI", "EnableSSE", "EnableSSE2"}
 
 configuration("Debug")
 flags({"Symbols"})
@@ -9,7 +9,7 @@ configuration("Release")
 flags({"OptimizeSpeed"})
 
 configuration "Static"
-flags({"OptimizeSpeed"})
+buildoptions {"-O4"} -- Link time optimization for nightly builds
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
 

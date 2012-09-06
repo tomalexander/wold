@@ -1,0 +1,26 @@
+# $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
+# Maintainer: Tom Alexander <craftkiller@delta>
+pkgname=wold-daily  
+pkgver=0.0.1
+pkgrel=1 
+pkgdesc="Exploring procedurally generated control structures"
+url=""
+arch=('x86_64')
+license=('ZLIB')
+depends=()
+makedepends=("tar", "xz")
+conflicts=()
+replaces=()
+backup=()
+install=
+source=(http://static.paphus.com/wold/current/wold_lin64.tar.xz)
+md5sums=()
+build() {
+  cd "$srcdir/wold"
+  mkdir -p "${pkgdir}/opt/"
+  cp -r "$srcdir/wold" "${pkgdir}/opt/"
+}
+
+package() {
+  ln -s /opt/wold/wold /usr/local/bin/
+}
