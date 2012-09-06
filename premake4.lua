@@ -4,22 +4,26 @@ flags {"NoRTTI"}
 
 configuration("Debug")
 flags({"Symbols"})
+
 configuration("Release")
 flags({"OptimizeSpeed"})
+
 configuration "Static"
 flags({"OptimizeSpeed"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
+
 configuration "StaticDebug"
 flags({"Symbols"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
+
 configuration "windows"
 linkoptions({"-static"})
-configuration({})
 
 configuration("linux")
 libdirs({"/usr/local/lib/"})
+
 configuration({})
 
 function link_library_deps()
@@ -53,14 +57,13 @@ function link_sfml()
 end
 
 function link_opengl()
-   configuration("windows")
+   configuration "windows"
    links({"opengl32", "gdi32", "winmm", "user32"})
-   configuration("linux")
-   linkoptions {"-Wl,-dy -lGL -lX11"}
-   links({"Xrandr", "Xrender", "SM", "ICE", "Xext"})
-   configuration "Static"
-   -- Renew -static
-   linkoptions {"-static"}   
+   configuration {"linux", "Debug or Release"}
+   links({"GL", "Xrandr", "Xrender", "SM", "ICE", "Xext", "X11"})
+   configuration {"linux", "Static*"}
+   links {"GL", "X11"}
+   linkoptions {"/usr/lib/libXrandr.a", "/usr/lib/libSM.a", "/usr/lib/libICE.a", "/usr/local/lib/libXext.a"}
    configuration({})
 end
 
