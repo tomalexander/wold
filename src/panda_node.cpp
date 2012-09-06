@@ -381,31 +381,8 @@ namespace topaz
         model* ret = new model();
         function<void (vertex&)> clean_vertex_system;
         function<void (unsigned int*, size_t)> clean_triangle;
-
-        //Check for Coordinate System
         list<panda_node*> to_visit;
-        to_visit.push_back(root);
-        while (to_visit.size() > 0)
-        {
-            panda_node* current = to_visit.front();
-            to_visit.pop_front();
-
-            for (panda_node* child : current->children)
-            {
-                to_visit.push_back(child);
-            }
-
-            if (current->tag == "CoordinateSystem")
-            {
-                to_visit.clear();
-                if (current->content == "Z-Up")
-                {
-                    clean_vertex_system = &fix_z_up;
-                    clean_triangle = &reverse_order;
-                }
-            }
-        }
-
+        
         //Check for normals
         to_visit.push_back(root);
         while (to_visit.size() > 0)
@@ -462,11 +439,6 @@ namespace topaz
                 to_visit.clear();
                 ret->texture = load_texture(current->texture_file_name);
                 found_texture = true;
-                if (current->content == "Z-Up")
-                {
-                    clean_vertex_system = &fix_z_up;
-                    clean_triangle = &reverse_order;
-                }
             }
         }
         ret->has_texture = found_texture;
