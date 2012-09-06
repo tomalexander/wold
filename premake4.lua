@@ -4,29 +4,38 @@ flags {"NoRTTI"}
 
 configuration("Debug")
 flags({"Symbols"})
+
 configuration("Release")
 flags({"OptimizeSpeed"})
+
 configuration "Static"
 flags({"OptimizeSpeed"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
+
 configuration "StaticDebug"
 flags({"Symbols"})
 flags({"StaticRuntime"})
 defines({"SFML_STATIC", "GLEW_STATIC"})
+
 configuration "windows"
 linkoptions({"-static"})
-configuration({})
 
 configuration("linux")
 libdirs({"/usr/local/lib/"})
+
 configuration({})
 
 function link_library_deps()
+   configuration "windows"
    links({"oolua", "lua", "physfs", "z", "pthread"})
-   configuration "linux"
-   links {"dl"}
+   configuration {"linux", "Debug or Release"}
+   links({"oolua", "lua", "physfs", "z", "pthread", "dl"})
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/local/lib/liboolua.a", "/usr/local/lib/liblua.a", "/usr/local/lib/libphysfs.a", "/usr/local/lib/libz.a", "-pthread", "/usr/lib/libdl.a", "-static-libgcc", "-static-libstdc++"}
+   links {"c"}
    configuration {}
+
    link_sfml()
    link_opengl()
 end
@@ -34,29 +43,37 @@ end
 function link_sfml()
    configuration "windows"
    links {"glew32"}
-   configuration "linux"
+   configuration {"linux", "Debug or Release"}
    links {"GLEW"}
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/lib64/libGLEW.a"}
    configuration {}
-   configuration "Debug"
+
+   configuration "Debug or Release"
    links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
-   configuration "Release"
-   links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
-   configuration "Static"
-   links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
-   configuration "StaticDebug"
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/local/lib/libsfml-window-s.a", "/usr/local/lib/libsfml-graphics-s.a", "/usr/local/lib/libsfml-audio-s.a", "/usr/local/lib/libsfml-network-s.a", "/usr/local/lib/libsfml-system-s.a"}
+   configuration {"windows", "Static*"}
    links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
    configuration {}
-   configuration "linux"
-   links {"rt"}
-   configuration {}
+
+   configuration "windows"
    links {"jpeg"}
+   configuration {"linux", "Debug or Release"}
+   links {"rt", "jpeg"}
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/lib/librt.a", "/usr/lib/libjpeg.a"}
+   configuration {}
 end
 
 function link_opengl()
-   configuration("windows")
-   links({"glu32", "opengl32", "gdi32", "winmm", "user32"})
-   configuration("linux")
-   links({"GL", "GLU", "Xrandr", "SM", "ICE", "X11", "Xext"})
+   configuration "windows"
+   links({"opengl32", "gdi32", "winmm", "user32"})
+   configuration {"linux", "Debug or Release"}
+   links({"GL", "Xrandr", "Xrender", "SM", "ICE", "Xext", "X11"})
+   configuration {"linux", "Static*"}
+   links {"GL", "X11"}
+   linkoptions {"/usr/lib/libXrandr.a", "/usr/local/lib/libXrender.a", "/usr/lib/libSM.a", "/usr/lib/libICE.a", "/usr/local/lib/libXext.a"}
    configuration({})
 end
 
