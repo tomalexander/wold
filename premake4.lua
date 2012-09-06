@@ -31,8 +31,8 @@ function link_library_deps()
    configuration "linux"
    links {"dl"}
    configuration {}
-   link_sfml()
    link_opengl()
+   link_sfml()
 end
 
 function link_sfml()
