@@ -8,19 +8,15 @@ url=""
 arch=('x86_64')
 license=('ZLIB')
 depends=()
-makedepends=("tar", "xz")
+makedepends=()
 conflicts=()
 replaces=()
 backup=()
-install=
-source=(http://static.paphus.com/wold/current/wold_lin64.tar.xz)
-md5sums=()
+install="wold.install"
+source=("http://static.paphus.com/wold/current/wold_lin64.tar.xz")
+md5sums=('89ccda4a35698f8f7a8c74a5518dddf9')
 build() {
   cd "$srcdir/wold"
   mkdir -p "${pkgdir}/opt/"
   cp -r "$srcdir/wold" "${pkgdir}/opt/"
-}
-
-package() {
-  ln -s /opt/wold/wold /usr/local/bin/
 }

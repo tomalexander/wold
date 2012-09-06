@@ -1,0 +1,3 @@
+post_install() {
+  ln -s /opt/wold/wold /usr/local/bin/
+}
