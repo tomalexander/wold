@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: Tom Alexander <craftkiller@delta>
 pkgname=wold-daily  
-pkgver=0.0.1
+#pkgver=0.0.1
 pkgrel=1 
 pkgdesc="Exploring procedurally generated control structures"
 url=""
@@ -13,8 +13,7 @@ conflicts=()
 replaces=()
 backup=()
 install="wold.install"
-source=("http://static.paphus.com/wold/current/wold_lin64.tar.xz")
-md5sums=('89ccda4a35698f8f7a8c74a5518dddf9')
+source=("http://static.paphus.com/wold/$pkgver/wold_lin64.tar.xz")
 build() {
   cd "$srcdir/wold"
   mkdir -p "${pkgdir}/opt/"
