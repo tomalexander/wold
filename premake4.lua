@@ -27,10 +27,14 @@ libdirs({"/usr/local/lib/"})
 configuration({})
 
 function link_library_deps()
+   configuration "windows"
    links({"oolua", "lua", "physfs", "z", "pthread"})
-   configuration "linux"
-   links {"dl"}
+   configuration {"linux", "Debug or Release"}
+   links({"oolua", "lua", "physfs", "z", "pthread", "dl"})
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/local/lib/liboolua.a", "/usr/local/lib/liblua.a", "/usr/local/lib/libphysfs.a", "/usr/local/lib/libz.a", "/usr/lib/libpthread.a", "/usr/lib/libdl.a"}
    configuration {}
+
    link_opengl()
    link_sfml()
 end
@@ -38,22 +42,27 @@ end
 function link_sfml()
    configuration "windows"
    links {"glew32"}
-   configuration "linux"
+   configuration {"linux", "Debug or Release"}
    links {"GLEW"}
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/lib64/libGLEW.a"}
    configuration {}
-   configuration "Debug"
+
+   configuration "Debug or Release"
    links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
-   configuration "Release"
-   links {"sfml-window", "sfml-graphics", "sfml-audio", "sfml-network", "sfml-system"}
-   configuration "Static"
-   links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
-   configuration "StaticDebug"
+   configuration {"linux", "Static*"}
+   linksoptions {"/usr/local/lib/libsfml-window-s.a", "/usr/local/lib/libsfml-graphics-s.a", "/usr/local/lib/libl-audio-s.a", "/usr/local/lib/libl-network-s.a", "/usr/local/lib/libl-system-s.a"}
+   configuration {"windows", "Static*"}
    links {"sfml-window-s", "sfml-graphics-s", "sfml-audio-s", "sfml-network-s", "sfml-system-s"}
    configuration {}
-   configuration "linux"
-   links {"rt"}
-   configuration {}
+
+   configuration "windows"
    links {"jpeg"}
+   configuration {"linux", "Debug or Release"}
+   links {"rt", "jpeg"}
+   configuration {"linux", "Static*"}
+   linkoptions {"/usr/lib/librt.a", "/usr/lib/libjpeg.a"}
+   configuration {}
 end
 
 function link_opengl()
