@@ -236,16 +236,15 @@ namespace topaz
     void check_shader(GLuint shader)
     {
         GLint status;
+        static int log_length;
+        static char buffer[1000];
         glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
         
         if (status != GL_FALSE)
             return;
         
-        int log_length;
-        char log_buffer[1000];
-        
-        glGetShaderInfoLog(shader, sizeof(log_buffer), &log_length, log_buffer);
-        fprintf(stderr, "OpenGL Shader Compile Error:\n%.*s", log_length, log_buffer);
+        glGetShaderInfoLog(shader, sizeof(buffer), &log_length, buffer);
+        std::cerr << "Shader Failed Compilation!\n" << buffer;
         exit(1);
     }
 }

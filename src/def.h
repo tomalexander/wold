@@ -22,7 +22,7 @@
  */
 #ifndef DEF_H_
 #define DEF_H_
-#define PRINT_SHADERS 0
+#define PRINT_SHADERS 1
 
 /*
  * PHYSICS_METHOD controls how rigid body dynamics are handled.
@@ -30,7 +30,7 @@
  * 0 Explicit Euler Numeric Integration
  * 1 Newton Math
  */
-#define PHYSICS_METHOD 1
+#define PHYSICS_METHOD 0
 
 #define PRINT_VELOCITY 0
 #define CLIP_Y_TO_0 1

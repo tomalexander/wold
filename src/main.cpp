@@ -64,16 +64,7 @@ int main(int argc, char** argv)
     panda_model = topaz::load_from_egg("panda-model", {"panda-walk"});
 
     panda_unit = new topaz::unit(panda_model);
-    other_panda_unit = new topaz::unit(panda_model);
     panda_unit->set_scale(0.005);
-    other_panda_unit->set_scale(0.005);
-    panda_unit->add_location(topaz::vec(0,9,0));
-    other_panda_unit->add_location(topaz::vec(5,9,0));
-    panda_unit->set_rigidbody("BOX");
-    other_panda_unit->set_rigidbody("BOX");
-    panda_unit->rigid_body->velocity = topaz::vec(1,0,0);
-    other_panda_unit->rigid_body->velocity = topaz::vec(-1,0,0);
-
     
     topaz::add_event_handler(&handle_keypress);
     topaz::add_event_handler(&handle_resize);
@@ -102,7 +93,7 @@ void create_ball()
 
 void create_tower()
 {
-    for (int x = 0; x < 10; ++x)
+    for (fu8 x = 0; x < 10; ++x)
     {
         topaz::unit* new_unit = new topaz::unit(panda_model);
         new_unit->set_scale(0.005);
@@ -118,7 +109,7 @@ void create_tower()
 
 void print_num_objects(int milliseconds)
 {
-    static int time_till_print = 1000;
+    static fs32 time_till_print = 1000;
     time_till_print -= milliseconds;
     if (time_till_print <= 0)
     {

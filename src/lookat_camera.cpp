@@ -29,7 +29,7 @@ namespace topaz
                                      target(0.0f, 0.0f, 0.0f),
                                      up(0.0f, 1.0f, 0.0)
     {
-        
+        look_at(location, target, up).print();
     }
 
     lookat_camera::~lookat_camera()
