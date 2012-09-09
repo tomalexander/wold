@@ -46,7 +46,7 @@ function link_sfml()
    configuration {"linux", "Debug or Release"}
    links {"GLEW"}
    configuration {"linux", "Static*"}
-   if os.is64bit() then
+   if os.is64bit   then
       linkoptions {"/usr/lib64/libGLEW.a"}
    else
       linkoptions {"/usr/lib/libGLEW.a"}
