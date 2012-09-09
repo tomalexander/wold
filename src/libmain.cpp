@@ -79,11 +79,6 @@ namespace topaz
         //Init Lua
         lua_init();
 
-        //Init OpenCL Accelerator
-        #if USE_OPENCL == 1
-        global_accelerator = new opencl({"main.cl"}, {"explicit_euler_numerical_integration", "maths", "check_for_collisions"});
-        #endif
-        
         sphere_model = load_from_egg("sphere");
 
         //Load Shaders
