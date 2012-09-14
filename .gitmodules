@@ -1,3 +1,6 @@
 [submodule "topaz"]
 	path = topaz
 	url = git://github.com/craftkiller/topaz.git
+[submodule "new_noise"]
+	path = new_noise
+	url = git://github.com/Ahumm/new_noise.git
