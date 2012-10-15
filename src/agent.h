@@ -22,12 +22,14 @@
  */
 #pragma once
 #include "topaz.h"
+#include "unit.h"
 
-class agent
+class agent : public topaz::unit
 {
   public:
     agent();
     ~agent();
     
   private:
+    u64 master;                 /**< Game Object ID of agent this agent is a vassal of */
 };

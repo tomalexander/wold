@@ -22,10 +22,13 @@
  */
 #include "agent.h"
 #include "topaz.h"
+#include "egg_parser.h"
 
-agent::agent()
+agent::agent() :
+    master(id)
 {
-
+    std::cout << master << ", " << id << "\n";
+    set_model(topaz::get_model("panda-model"));
 }
 
 agent::~agent()

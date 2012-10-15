@@ -37,6 +37,7 @@
 #include "rigidbody.h"
 #include "terrain.h"
 #include "world.h"
+#include "agent.h"
 
 using std::unordered_map;
 
@@ -65,11 +66,14 @@ int main(int argc, char** argv)
     // float grid[] = {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0};
     // topaz::terrain t(4,4,grid,0.5);
     // t.set_scale(4);
-    // t.paint(0,0,3,3,topaz::load_texture("green-panda-model.png"));
+    // t.paint(0,0,3,3,topaz::load_texture("3green-panda-model.png"));
     // t.paint(1,1,2,2,1.0f,0.0f,0.0f);
     // t.finalize();
 
     world w;
+    agent a;
+    agent b;
+    agent c;
 
     game_loop(camera, P);
   
