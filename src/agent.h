@@ -33,6 +33,8 @@ class agent : public topaz::unit
     agent();
     ~agent();
     
+    const u64& get_master() const {return master;}
+    
   private:
     u64 master;                 /**< Game Object ID of agent this agent is a vassal of */
 

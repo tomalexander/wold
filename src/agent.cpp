@@ -23,15 +23,42 @@
 #include "agent.h"
 #include "topaz.h"
 #include "egg_parser.h"
+#include <unordered_map>
+#include <list>
+
+namespace
+{
+    std::unordered_map<u64, agent*> agents;
+    agent* get_agent_from_id(u64 id)
+    {
+        auto it = agents.find(id);
+        return (it == agents.end() ? nullptr : it->second);
+    }
+
+    std::list<agent*> find_top_level_agents()
+    {
+        std::list<agent*> ret;
+        for (const std::pair<u64, agent*> & entry : agents)
+        {
+            if (entry.second->id == entry.second->get_master())
+            {
+                ret.push_back(entry.second);
+            }
+        }
+        return ret;
+    }
+}
 
 agent::agent() :
     master(id)
 {
     set_model(topaz::get_model("panda-model"));
     set_scale(0.005);
+    agents.insert(make_pair(id, this));
+    // topaz::add_cleanup_function([=]() {delete this;});
 }
 
 agent::~agent()
 {
-
+    agents.erase(id);
 }
