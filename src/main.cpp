@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Tom Alexander
+ * Copyright (c) 2012 Tom Alexander, Tate Larsen
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -36,6 +36,7 @@
 #include "sphere_primitive.h"
 #include "rigidbody.h"
 #include "terrain.h"
+#include "world.h"
 
 using std::unordered_map;
 
@@ -61,12 +62,14 @@ int main(int argc, char** argv)
     topaz::add_event_handler(&handle_resize);
     topaz::add_pre_draw_function(&handle_keyboard);
 
-float grid[] = {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0};
-    topaz::terrain t(4,4,grid,0.5);
-    t.set_scale(4);
+    // float grid[] = {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0};
+    // topaz::terrain t(4,4,grid,0.5);
+    // t.set_scale(4);
     // t.paint(0,0,3,3,topaz::load_texture("green-panda-model.png"));
-    t.paint(1,1,2,2,1.0f,0.0f,0.0f);
-    t.finalize();
+    // t.paint(1,1,2,2,1.0f,0.0f,0.0f);
+    // t.finalize();
+
+    world w;
 
     game_loop(camera, P);
   
