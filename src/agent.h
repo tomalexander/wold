@@ -23,6 +23,9 @@
 #pragma once
 #include "topaz.h"
 #include "unit.h"
+#include <unordered_map>
+
+enum agent_actions {ATTACK, MINE, FARM, HARVEST_WOOD, HARVEST_STONE, REST, TRIBUTE, AGENT_ACTIONS_SIZE}; /**< The final element in the actions enum is merely to get the quantity of elements */
 
 class agent : public topaz::unit
 {
@@ -32,4 +35,18 @@ class agent : public topaz::unit
     
   private:
     u64 master;                 /**< Game Object ID of agent this agent is a vassal of */
+
+    //Quantities of Resources
+    float iron;
+    float wood;
+    float food;
+    float stone;
+    float water;
+
+    std::unordered_map<u64, float> opinions_of_others; /**< Opinions held towards other agents this agent has met */
+
+    float energy;
+    float proficiency[AGENT_ACTIONS_SIZE];
+    topaz::point home_location;
+    float happiness;
 };

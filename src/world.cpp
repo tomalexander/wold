@@ -21,7 +21,8 @@
  *    distribution.
  */
 #define MAP_SIZE 1024
-#define TERRAIN_SCALE 32.0f
+#define TERRAIN_SCALE 1024.0f
+#define TERRAIN_HEIGHT 10.0f
 
 #include "map_grid.h"
 #include "modules/include_all_modules.h"
@@ -45,7 +46,7 @@ world::world()
     mg.generate(0,0);
     float* data = mg.get_data();
 
-    terrain = new topaz::terrain(MAP_SIZE, MAP_SIZE, data, 1.0f/TERRAIN_SCALE);
+    terrain = new topaz::terrain(MAP_SIZE, MAP_SIZE, data, TERRAIN_HEIGHT/TERRAIN_SCALE);
     terrain->set_scale(TERRAIN_SCALE);
     terrain->finalize();
 }

@@ -27,8 +27,8 @@
 agent::agent() :
     master(id)
 {
-    std::cout << master << ", " << id << "\n";
     set_model(topaz::get_model("panda-model"));
+    set_scale(0.005);
 }
 
 agent::~agent()
