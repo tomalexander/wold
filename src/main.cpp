@@ -35,6 +35,7 @@
 #include "animation.h"
 #include "sphere_primitive.h"
 #include "rigidbody.h"
+#include "terrain.h"
 
 using std::unordered_map;
 
@@ -48,10 +49,6 @@ void print_num_objects(int milliseconds);
 topaz::matrix P;
 topaz::lookat_camera camera;
 topaz::uberlight main_light;
-topaz::model* panda_model;
-topaz::unit* panda_unit;
-topaz::unit* other_panda_unit;
-topaz::unit* pipe_unit;
 int time_elapsed;
 int num_objects = 2;
 
@@ -60,62 +57,21 @@ int main(int argc, char** argv)
     topaz::init(argv[0]);
     P = topaz::perspective(60.0f, 800.0f/600.0f, 0.1f, 100.f);
     
-    topaz::model* pipe_model = topaz::load_from_egg("bar", {"bar-bend"});
-    panda_model = topaz::load_from_egg("panda-model", {"panda-walk"});
-
-    panda_unit = new topaz::unit(panda_model);
-    panda_unit->set_scale(0.005);
-    
     topaz::add_event_handler(&handle_keypress);
     topaz::add_event_handler(&handle_resize);
     topaz::add_pre_draw_function(&handle_keyboard);
-    topaz::add_pre_draw_function(&print_num_objects);
+
+float grid[] = {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0};
+    topaz::terrain t(4,4,grid,0.5);
+    t.set_scale(4);
+    // t.paint(0,0,3,3,topaz::load_texture("green-panda-model.png"));
+    t.paint(1,1,2,2,1.0f,0.0f,0.0f);
+    t.finalize();
 
     game_loop(camera, P);
   
     topaz::cleanup();
     return 0;
-}
-
-void create_ball()
-{
-    topaz::unit* new_unit = new topaz::unit(panda_model);
-    new_unit->set_scale(0.005);
-    new_unit->add_location(topaz::vec(camera.get_position().x(), camera.get_position().y(), camera.get_position().z()));
-    new_unit->set_rigidbody("SPHERE");
-    topaz::vec direction = camera.get_target() - camera.get_position();
-    direction.normalize();
-    direction *= 30+rand()%10;
-    new_unit->rigid_body->velocity = direction;
-    new_unit->rigid_body->mass = 10.0f;
-    num_objects += 1;
-}
-
-void create_tower()
-{
-    for (fu8 x = 0; x < 10; ++x)
-    {
-        topaz::unit* new_unit = new topaz::unit(panda_model);
-        new_unit->set_scale(0.005);
-        topaz::vec direction = camera.get_target() - camera.get_position();
-        direction.normalize();
-        direction *= 20;
-        new_unit->add_location(topaz::vec(camera.get_position().x()+direction.x() + rand()%10, camera.get_position().y()+direction.y() + x*3, camera.get_position().z()+direction.z()));
-        new_unit->set_rigidbody("BOX");
-        new_unit->rigid_body->velocity = topaz::vec(rand()%20 - 10, rand()%20 - 10, rand()%20 - 10);
-    }
-    num_objects += 10;
-}
-
-void print_num_objects(int milliseconds)
-{
-    static fs32 time_till_print = 1000;
-    time_till_print -= milliseconds;
-    if (time_till_print <= 0)
-    {
-        time_till_print += 1000;
-        std::cout << "Num Objects: " << num_objects << "\n";
-    }
 }
 
 bool handle_keypress(const sf::Event & event)
@@ -128,13 +84,6 @@ bool handle_keypress(const sf::Event & event)
         topaz::cleanup();
         return true;
         break;
-      case sf::Keyboard::Return:
-        create_ball();
-        return true;
-        break;
-      case sf::Keyboard::T:
-        create_tower();
-        return true;
       default:
         return false;
         break;
