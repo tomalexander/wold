@@ -24,13 +24,25 @@
 #include "topaz.h"
 #include "terrain.h"
 
+#include <map>
+#include <string>
+
+namespace noise
+{
+    class map_grid;
+}
+
 class world
 {
   public:
     world();
+    world(const int& seed);
     ~world();
     
+    void init();
+
   private:
     int world_seed;
     topaz::terrain* terrain;
+    std::map<std::string, noise::map_grid*> resources;
 };
