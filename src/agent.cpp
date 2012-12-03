@@ -23,6 +23,8 @@
 #include "agent.h"
 #include "topaz.h"
 #include "egg_parser.h"
+#include "world.h"
+
 #include <unordered_map>
 #include <list>
 
@@ -61,4 +63,22 @@ agent::agent() :
 agent::~agent()
 {
     agents.erase(id);
+}
+
+void agent::act(world* the_world)
+{
+    std::vector<node_info> visible = the_world->visible_things(this);
+}
+
+void agent::init()
+{
+    iron = 0.0f;
+    wood = 0.0f;
+    food = 0.0f;
+    stone = 0.0f;
+    water = 0.0f;
+    health = 100.0f;
+    energy = 100.0f;
+    happiness = 50.0f;
+    for(int i = 0; i < AGENT_ACTIONS_SIZE; ++i) proficiency[i] = 0.0f;
 }

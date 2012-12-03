@@ -23,6 +23,7 @@
 #define MAP_SIZE 1024
 #define TERRAIN_SCALE 1024.0f
 #define TERRAIN_HEIGHT 25.0f
+#define VISIBLE_RANGE 30.0f
 
 #include "map_grid.h"
 #include "modules/include_all_modules.h"
@@ -31,11 +32,7 @@
 
 #include <map>
 #include <string>
-
-namespace
-{
-    noise::map_grid mg(MAP_SIZE,MAP_SIZE);
-}
+#include <vector>
 
 world::world()
 {
@@ -66,20 +63,23 @@ world::~world()
 
 void world::init()
 {
+    // Hold various map_grids as we push them into the map of resources
+    noise::map_grid* mg_ptr = new noise::map_grid(MAP_SIZE,MAP_SIZE);
+
     // Generate Terrain
     noise::perlin_mod* terrain_gen = new noise::perlin_mod(0.5f, 6, world_seed);
-    mg.set_module(terrain_gen);
-    mg.generate(0,0);
-    float* data = mg.get_data();
+    mg_ptr->set_module(terrain_gen);
+    mg_ptr->generate(0,0);
+    float* data = mg_ptr->get_data();
+
+    // Keep track of the terrain (for height sampling)
+    resources.insert(std::pair<std::string, noise::map_grid*>("terrain", mg_ptr));
 
     terrain = new topaz::terrain(MAP_SIZE, MAP_SIZE, data, TERRAIN_HEIGHT/TERRAIN_SCALE);
     terrain->set_scale(TERRAIN_SCALE);
     terrain->finalize();
 
     // Generate Resource Maps
-
-    // Hold various map_grids as we push them into the map of resources
-    noise::map_grid* mg_ptr = new noise::map_grid(MAP_SIZE,MAP_SIZE);
 
     // Iron Distribution
     noise::perlin_mod* iron_gen = new noise::perlin_mod(0.5f, 6, world_seed + 1);
@@ -118,4 +118,42 @@ void world::init()
     mg_ptr->set_module(water_gen);
     mg_ptr->generate(0,0);
     resources.insert(std::pair<std::string, noise::map_grid*>("water", mg_ptr));
+}
+
+node_info world::sample_loc(const float& x_loc, const float& y_loc)
+{
+    // Go through and grab the resource values for a given x,y coordinate
+    node_info res_samp;
+    res_samp.x = x_loc;
+    res_samp.y = y_loc;
+    res_samp.z = resources.find("terrain")->second->get_val(x_loc, y_loc);
+    res_samp.health = 0.0f;
+    res_samp.iron = resources.find("iron")->second->get_val(x_loc, y_loc);
+    res_samp.wood = resources.find("wood")->second->get_val(x_loc, y_loc);
+    res_samp.food = resources.find("food")->second->get_val(x_loc, y_loc);
+    res_samp.stone = resources.find("stone")->second->get_val(x_loc, y_loc);
+    res_samp.water = resources.find("water")->second->get_val(x_loc, y_loc);
+    return res_samp;
+}
+
+std::vector<node_info> world::visible_things(agent* cur_agent)
+{
+    std::vector<node_info> things;
+    topaz::point center = cur_agent->get_location();
+    // Sample all locations within VISIBLE_RANGE units
+    for(int x = center.x() - VISIBLE_RANGE; x < center.x() + VISIBLE_RANGE; ++x)
+    {
+        if(x < 0 || x >= MAP_SIZE) continue;
+        for(int y = center.y() - VISIBLE_RANGE; y < center.y() + VISIBLE_RANGE; ++y)
+        {
+            if(y < 0 || y >= MAP_SIZE) continue;
+            topaz::point tmp((float)x, (float)y, center.z());
+            if(cur_agent->get_distance_to(tmp) < VISIBLE_RANGE) things.push_back(sample_loc(tmp.x(), tmp.y()));
+        }
+    }
+
+    // Add all agents within VISIBLE_RANGE units
+    // TODO
+
+    return things;
 }

@@ -23,9 +23,12 @@
 #pragma once
 #include "topaz.h"
 #include "unit.h"
+#include "world.h"
 #include <unordered_map>
 
 enum agent_actions {ATTACK, MINE, FARM, HARVEST_WOOD, HARVEST_STONE, REST, TRIBUTE, AGENT_ACTIONS_SIZE}; /**< The final element in the actions enum is merely to get the quantity of elements */
+
+class world;
 
 class agent : public topaz::unit
 {
@@ -34,7 +37,8 @@ class agent : public topaz::unit
     ~agent();
     
     const u64& get_master() const {return master;}
-    
+    void act(world* the_world);
+
   private:
     u64 master;                 /**< Game Object ID of agent this agent is a vassal of */
 
@@ -47,8 +51,12 @@ class agent : public topaz::unit
 
     std::unordered_map<u64, float> opinions_of_others; /**< Opinions held towards other agents this agent has met */
 
+    float health;
     float energy;
     float proficiency[AGENT_ACTIONS_SIZE];
     topaz::point home_location;
     float happiness;
+
+    void init();
+    
 };

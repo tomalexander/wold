@@ -23,14 +23,24 @@
 #pragma once
 #include "topaz.h"
 #include "terrain.h"
+#include "agent.h"
 
 #include <map>
 #include <string>
+#include <vector>
 
 namespace noise
 {
     class map_grid;
 }
+
+class agent;
+
+typedef struct {
+    float x, y, z;
+    float health;
+    float iron, wood, food, stone, water;
+} node_info;
 
 class world
 {
@@ -40,6 +50,9 @@ class world
     ~world();
     
     void init();
+
+    std::vector<node_info> visible_things(agent* cur_agent);
+    node_info sample_loc(const float& x_loc, const float& y_loc);
 
   private:
     int world_seed;
