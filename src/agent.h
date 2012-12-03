@@ -49,6 +49,6 @@ class agent : public topaz::unit
 
     float energy;
     float proficiency[AGENT_ACTIONS_SIZE];
-    topaz::point home_location;
+    glm::vec3 home_location;
     float happiness;
 };
