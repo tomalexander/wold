@@ -139,16 +139,16 @@ node_info world::sample_loc(const float& x_loc, const float& y_loc)
 std::vector<node_info> world::visible_things(agent* cur_agent)
 {
     std::vector<node_info> things;
-    topaz::point center = cur_agent->get_location();
+    glm::vec3 center = cur_agent->get_location();
     // Sample all locations within VISIBLE_RANGE units
-    for(int x = center.x() - VISIBLE_RANGE; x < center.x() + VISIBLE_RANGE; ++x)
+    for(int x = center.x - VISIBLE_RANGE; x < center.x + VISIBLE_RANGE; ++x)
     {
         if(x < 0 || x >= MAP_SIZE) continue;
-        for(int y = center.y() - VISIBLE_RANGE; y < center.y() + VISIBLE_RANGE; ++y)
+        for(int y = center.y - VISIBLE_RANGE; y < center.y + VISIBLE_RANGE; ++y)
         {
             if(y < 0 || y >= MAP_SIZE) continue;
-            topaz::point tmp((float)x, (float)y, center.z());
-            if(cur_agent->get_distance_to(tmp) < VISIBLE_RANGE) things.push_back(sample_loc(tmp.x(), tmp.y()));
+            glm::vec3 tmp((float)x, (float)y, center.z);
+            if(cur_agent->get_distance_to(tmp) < VISIBLE_RANGE) things.push_back(sample_loc(tmp.x, tmp.y));
         }
     }
 
